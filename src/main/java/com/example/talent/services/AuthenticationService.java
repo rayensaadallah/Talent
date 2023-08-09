@@ -5,11 +5,13 @@ import java.util.Set;
 
 
 import com.example.talent.dtos.LoginResponseDTO;
-import com.example.talent.models.ApplicationUser;
+import com.example.talent.models.Users;
 import com.example.talent.models.Role;
 import com.example.talent.repository.RoleRepository;
 import com.example.talent.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,33 +23,35 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class AuthenticationService {
 
-    @Autowired
+
     private UserRepository userRepository;
 
-    @Autowired
+
     private RoleRepository roleRepository;
 
-    @Autowired
+
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
+
     private AuthenticationManager authenticationManager;
 
-    @Autowired
     private TokenService tokenService;
 
-    public ApplicationUser registerUser(String username, String password){
+    public ResponseEntity<String> registerUser(String username, String password){
 
+        if (userRepository.existsByUsername(username)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User Already Exist ");
+        }else {
         String encodedPassword = passwordEncoder.encode(password);
         Role userRole = roleRepository.findByAuthority("USER").get();
-
         Set<Role> authorities = new HashSet<>();
-
         authorities.add(userRole);
-
-        return userRepository.save(new ApplicationUser(0, username, encodedPassword, authorities));
+        userRepository.save(new Users(0, username, encodedPassword, authorities));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("User Added ");
+        }
     }
 
     public LoginResponseDTO loginUser(String username, String password){

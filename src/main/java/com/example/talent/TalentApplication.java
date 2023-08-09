@@ -1,6 +1,6 @@
 package com.example.talent;
 
-import com.example.talent.models.ApplicationUser;
+import com.example.talent.models.Users;
 import com.example.talent.models.Role;
 import com.example.talent.repository.RoleRepository;
 import com.example.talent.repository.UserRepository;
@@ -23,17 +23,26 @@ public class TalentApplication {
 
 	@Bean
 	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncode){
-		return args ->{
-			if(roleRepository.findByAuthority("ADMIN").isPresent())
+		return args -> {
+			if (roleRepository.findByAuthority("ADMIN").isPresent()) {
 				return;
+			}
+
 			Role adminRole = roleRepository.save(new Role("ADMIN"));
-			roleRepository.save(new Role("USER"));
-			roleRepository.save(new Role("MANEGER"));
-			Set<Role> roles = new HashSet<>();
-			roles.add(adminRole);
-			ApplicationUser admin = new ApplicationUser(1, "admin", passwordEncode.encode("admin"), roles);
-			userRepository.save(admin);
+			Role userRole = roleRepository.save(new Role("USER"));
+			roleRepository.save(new Role("MANAGER"));
+
+			Set<Role> adminRoles = new HashSet<>();
+			adminRoles.add(adminRole);
+			Users adminUser = new Users(1, "admin", passwordEncode.encode("admin"), adminRoles);
+			userRepository.save(adminUser);
+
+			Set<Role> userRoles = new HashSet<>();
+			userRoles.add(userRole);
+			Users regularUser = new Users(2, "user", passwordEncode.encode("user"), userRoles);
+			userRepository.save(regularUser);
 		};
+
 	}
 
 }

@@ -1,34 +1,19 @@
 package com.example.talent.dtos;
 
-import com.example.talent.models.ApplicationUser;
+import com.example.talent.models.Users;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
 public class LoginResponseDTO {
-    private ApplicationUser user;
+    private Users user;
     private String jwt;
 
-    public LoginResponseDTO(){
-        super();
-    }
 
-    public LoginResponseDTO(ApplicationUser user, String jwt){
-        this.user = user;
-        this.jwt = jwt;
-    }
 
-    public ApplicationUser getUser(){
-        return this.user;
-    }
 
-    public void setUser(ApplicationUser user){
-        this.user = user;
-    }
 
-    public String getJwt(){
-        return this.jwt;
-    }
 
-    public void setJwt(String jwt){
-        this.jwt = jwt;
-    }
 
 }

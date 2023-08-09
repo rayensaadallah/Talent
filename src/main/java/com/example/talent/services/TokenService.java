@@ -17,7 +17,6 @@ public class TokenService {
     
     @Autowired
     private JwtEncoder jwtEncoder;
-
     @Autowired
     private JwtDecoder jwtDecoder;
 

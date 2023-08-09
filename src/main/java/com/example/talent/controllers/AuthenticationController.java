@@ -2,9 +2,9 @@ package com.example.talent.controllers;
 
 import com.example.talent.dtos.LoginResponseDTO;
 import com.example.talent.dtos.RegistrationDTO;
-import com.example.talent.models.ApplicationUser;
 import com.example.talent.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +20,7 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ApplicationUser registerUser(@RequestBody RegistrationDTO body){
+    public ResponseEntity<String> registerUser(@RequestBody RegistrationDTO body) throws Exception {
         return authenticationService.registerUser(body.getUsername(), body.getPassword());
     }
     

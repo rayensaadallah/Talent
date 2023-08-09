@@ -1,9 +1,10 @@
 package com.example.talent.models;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,43 +12,36 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-
 @Entity
 @Table(name="users")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplicationUser implements UserDetails{
+public class Users implements UserDetails{
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer userId;
-	@Column(unique=true)
-    private String username;
+	@Column(unique = true, nullable = false)
+	private String username;
     private String password;
 	private String email;
 	private String phoneNumber;
 	private String country;
 	private String Objectif;
 
+	@ManyToOne
+	@JsonIgnore
+	private Carrier carrier;
+
 
     @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(name="user_role_junction", joinColumns = {@JoinColumn(name="user_id")},inverseJoinColumns = {@JoinColumn(name="role_id")})
+    @JoinTable(name="user_roles", joinColumns = {@JoinColumn(name="user_id")},inverseJoinColumns = {@JoinColumn(name="role_id")})
     private Set<Role> authorities;
 
 
-	public ApplicationUser(Integer userId, String username, String password, Set<Role> authorities) {
+	public Users(Integer userId, String username, String password, Set<Role> authorities) {
 		super();
 		this.userId = userId;
 		this.username = username;
