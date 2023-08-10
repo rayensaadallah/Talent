@@ -15,6 +15,8 @@ public class Carrier {
 
     private Integer id;
     private String title;
+    @Enumerated(EnumType.STRING)
+    private Type type;
     private String Level;
     private int needed_days;
     private Date date_Start;

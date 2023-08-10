@@ -30,7 +30,7 @@ public class TalentApplication {
 
 			Role adminRole = roleRepository.save(new Role("ADMIN"));
 			Role userRole = roleRepository.save(new Role("USER"));
-			roleRepository.save(new Role("MANAGER"));
+			Role managerRole = roleRepository.save(new Role("MANAGER"));
 
 			Set<Role> adminRoles = new HashSet<>();
 			adminRoles.add(adminRole);
@@ -41,6 +41,12 @@ public class TalentApplication {
 			userRoles.add(userRole);
 			Users regularUser = new Users(2, "user", passwordEncode.encode("user"), userRoles);
 			userRepository.save(regularUser);
+
+			Set<Role> managerRoles = new HashSet<>();
+			managerRoles.add(managerRole);
+			Users managerUser = new Users(3, "manager", passwordEncode.encode("manager"), managerRoles);
+			userRepository.save(managerUser);
+
 		};
 
 	}
