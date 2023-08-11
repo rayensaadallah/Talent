@@ -36,7 +36,7 @@ public class UserController {
     public void removeUser() {
         userService.removeMyaccount();
     }
-    @PutMapping("/edit")
+    @PutMapping("/update")
     public UserDto updateUser(@RequestBody UserDto userDto){
         return userService.update(userDto);
     }

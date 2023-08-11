@@ -17,15 +17,15 @@ import java.util.List;
 public class CarrierController {
 
     IServiceCarrier serviceCarrier;
-    @GetMapping("/showAll")
+    @GetMapping("/")
     @PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
     public List<CarrierDto> showAll(){
          List<CarrierDto> list=serviceCarrier.getAllCarriers();
         return list;
     }
-    @GetMapping("/show")
+    @GetMapping("/show/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
-    public CarrierDto showone(@RequestParam Integer carrierId){
+    public CarrierDto showone(@PathVariable("id") Integer carrierId){
      CarrierDto carrierDto  =serviceCarrier.getCarrier(carrierId);
 
         return  carrierDto;
@@ -45,11 +45,13 @@ public class CarrierController {
     }
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public void remove(@PathVariable("id") Integer id) {
+    public ResponseEntity<String> remove(@PathVariable("id") Integer id) {
         serviceCarrier.delete(id);
+      return ResponseEntity.ok("Carrier is Deleted ");
+
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<String>update(@PathVariable("id") Integer id,@RequestBody CarrierDto carrierDto) {
         serviceCarrier.update(id,carrierDto);
