@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
-public class Carrier {
+public class Carrier  implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 

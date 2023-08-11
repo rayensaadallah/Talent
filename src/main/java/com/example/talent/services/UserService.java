@@ -116,22 +116,26 @@ public class UserService implements UserDetailsService {
 
         return userDtos;
     }
-    public void UserToManager(Integer id) throws UsernameNotFoundException {
-        Optional<Users> userOptional = userRepository.findById(id);
-        Optional<Role> managerRole = roleRepository.findById(3);
 
-        if ((userOptional.isPresent())&&(managerRole.isPresent())) {
-            Users user = userOptional.get();
-            Role userRole = roleRepository.findByAuthority("MANAGER").get();
-            Set<Role> authorities = new HashSet<>();
+    public void userToManager(Integer userId) throws UsernameNotFoundException {
+        Users user = userRepository.findById(userId).orElse(null);
 
-            authorities.add(userRole);
-            userRepository.save(user);
+        if (user != null) {
+            Optional<Role> managerRole = roleRepository.findByAuthority("MANAGER");
+
+            if (managerRole.isPresent()) {
+                Set<Role> authorities = new HashSet<>();
+                authorities.add(managerRole.get());
+
+                user.setAuthorities(authorities);
+                userRepository.save(user);
+            } else {
+                throw new RuntimeException("Manager role not found.");
+            }
         } else {
             throw new UsernameNotFoundException("User not found.");
         }
     }
-
 
 }
 

@@ -31,7 +31,7 @@ public class AdminController {
     }
     @PutMapping("/UserToManager/{id}")
     public void UserToManager(@PathVariable("id") Integer id ) throws RoleNotFoundException {
-         userService.UserToManager(id);
+         userService.userToManager(id);
 
     }
 
