@@ -6,6 +6,7 @@ import com.example.talent.models.Offer;
 import com.example.talent.repository.OffreRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@NoArgsConstructor
 public class OffreService implements IoffreService{
 
     OffreRepository offreRepository;

@@ -31,6 +31,9 @@ public class Users implements UserDetails{
 	private String country;
 	private String Objectif;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	private Cv cv;
+
 	@ManyToOne
 	@JsonIgnore
 	private Carrier carrier;
@@ -39,6 +42,10 @@ public class Users implements UserDetails{
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="user_roles", joinColumns = {@JoinColumn(name="user_id")},inverseJoinColumns = {@JoinColumn(name="role_id")})
     private Set<Role> authorities;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<Formation> Formations;
 
 
 	public Users(Integer userId, String username, String password, Set<Role> authorities) {
