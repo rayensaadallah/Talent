@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/Project")
+@CrossOrigin("*")
+
 public class ProjectController {
     @Autowired
     IProject ip;

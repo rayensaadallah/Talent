@@ -117,8 +117,8 @@ public class UserService implements UserDetailsService {
         return userDtos;
     }
 
-    public void userToManager(Integer userId) throws UsernameNotFoundException {
-        Users user = userRepository.findById(userId).orElse(null);
+    public void userToManager(String  username) throws UsernameNotFoundException {
+        Users user = userRepository.findByUsername(username).orElse(null);
 
         if (user != null) {
             Optional<Role> managerRole = roleRepository.findByAuthority("MANAGER");

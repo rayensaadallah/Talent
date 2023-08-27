@@ -29,10 +29,9 @@ public class AdminController {
         List<UserDto> list = userService.getAllUsersByRoles("MANAGER");
         return list;
     }
-    @PutMapping("/UserToManager/{id}")
-    public void UserToManager(@PathVariable("id") Integer id ) throws RoleNotFoundException {
-         userService.userToManager(id);
-
+    @PutMapping("/UserToManager/{username}")
+    public void UserToManager(@PathVariable("username") String username ) throws RoleNotFoundException {
+         userService.userToManager(username);
     }
 
 }

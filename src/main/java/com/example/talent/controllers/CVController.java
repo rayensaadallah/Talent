@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cv")
+@CrossOrigin("*")
 
 public class CVController {
 @Autowired

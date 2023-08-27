@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/Skills")
+@CrossOrigin("*")
+
 public class SkillsController {
     @Autowired
     ISkills is;

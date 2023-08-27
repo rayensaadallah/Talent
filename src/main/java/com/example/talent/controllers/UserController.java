@@ -17,7 +17,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin("*")
-
 public class UserController {
 
     @Autowired
@@ -25,7 +24,6 @@ public class UserController {
     @GetMapping("/")
     public String helloUserController(){
         return "User level access";
-
     }
     @GetMapping("/info")
     public UserDto getUserInfo() {
