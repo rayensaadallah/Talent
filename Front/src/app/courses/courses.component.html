@@ -1,0 +1,147 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">List Courses Available :</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-primary">
+                        <th>Title</th>
+                        <th>Comapny Name</th>
+                        <th>Technologies</th>
+                        <th>Skills</th>
+                        <th>Duration</th>
+                        <th>Place</th>
+                        <th>Description</th>
+                        <th>Language</th>
+                        <th>Rate</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let p of listCarrier'>
+                            <td>{{p.title}}</td>
+                            <td>{{p.name_company}}</td>
+                            <td>{{p.technologie}}</td>
+                            <td>{{p.Skills}}</td>
+                            <td>{{p.nbr_hours}}</td>
+                            <td>{{p.place}}</td>
+
+                            <td>{{p.description}}</td>
+
+                            <td>{{p.Language}}</td>
+
+                            <td>{{p.Rate}}</td>
+
+                            <td><button type="button" (click)="delete(p)" class="btn btn-outline-primary">Delete
+                                    Carrier</button></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <h5 class="card-title">Career</h5>
+            </div>
+            <div class="card-body">
+                <form #orderForm="ngForm">
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">title </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="title" required=""
+                                [(ngModel)]="selectedformation.title">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Company Name </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="name_company" required=""
+                                [(ngModel)]="selectedformation.name_company">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Technologie </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="technologie" required=""
+                                [(ngModel)]="selectedformation.technologie">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Skills </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="Skills" required=""
+                                [(ngModel)]="selectedformation.Skills">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Lenght: </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="number" id="validationCustom012" name="nbr_hours" required=""
+                                [(ngModel)]="selectedformation.nbr_hours">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">place </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="place" required=""
+                                [(ngModel)]="selectedformation.place">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">description </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="description" required=""
+                                [(ngModel)]="selectedformation.description">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Language </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="Language" required=""
+                                [(ngModel)]="selectedformation.Language">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Rate </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="number" id="validationCustom012" name="Rate" required=""
+                                [(ngModel)]="selectedformation.Rate">
+                        </div>
+                    </div>
+                    
+
+
+                    <div class="row">
+                        <div class="update m-auto mr-auto">
+                                <button type="submit" class="btn btn-success btn-round"
+                                (click)="add(selectedformation)">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

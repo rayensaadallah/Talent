@@ -1,0 +1,64 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">List Users :</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-primary">
+                        <th>User Names</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Choosen Carriers</th>
+                        <th>Objectifs</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let p of listUsers'>
+                            <td>{{p.username}}</td>
+                            <td>{{p.email}}</td>
+                            <td>{{p.phoneNumber}}</td>
+                            <td>{{p.carrier}}</td>
+                            <td>{{p.Objectif}}</td>
+                            <td><button type="button" (click)="upgradeUser(p.username!)"
+                                    class="btn btn-outline-primary">Upgrade To manager</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">List Managers :</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-primary">
+                        <th>User Names</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Choosen Carriers</th>
+                        <th>Objectifs</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let p of listmanagers'>
+                            <td>{{p.username}}</td>
+                            <td>{{p.email}}</td>
+                            <td>{{p.phoneNumber}}</td>
+                            <td>{{p.carrier}}</td>
+                            <td>{{p.Objectif}}</td>
+                            <td><button type="button" (click)="upgradeUser(p.username!)"
+                                    class="btn btn-outline-primary">Upgrade To manager</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

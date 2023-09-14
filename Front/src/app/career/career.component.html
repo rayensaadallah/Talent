@@ -1,0 +1,111 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">List Carrers Availabel :</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-primary">
+                        <th>Title</th>
+                        <th>Level</th>
+                        <th>Time To Excel</th>
+                        <th>Data Start</th>
+                        <th>Type </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let p of listCarrier'>
+                            <td>{{p.title}}</td>
+                            <td>{{p.level}}</td>
+                            <td>{{p.needed_days}}</td>
+                            <td>{{p.date_Start}}</td>
+                            <td>{{p.type}}</td>
+                            <td><button type="button" (click)="deleteCarrier(p)" class="btn btn-outline-primary">Delete
+                                    Carrier</button></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <h5 class="card-title">Career</h5>
+            </div>
+            <div class="card-body">
+                <form #orderForm="ngForm">
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">title </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="title" required=""
+                                [(ngModel)]="selectedCarrier.title">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Level</label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <select class="form-control" id="validationCustom012" name="level" required=""
+                                [(ngModel)]="selectedCarrier.level">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Amateur">Amateur</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Professional">Professional</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Time to Excel </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="number" id="validationCustom012" name="needed_days"
+                                required="" [(ngModel)]="selectedCarrier.needed_days">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Sience </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="datetime-local" id="validationCustom012" name="date_Start"
+                                required="" [(ngModel)]="selectedCarrier.date_Start">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Type</label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <select class="form-control" id="validationCustom012" name="type" required=""
+                                [(ngModel)]="selectedCarrier.type">
+                                <option value="WEB">WEB</option>
+                                <option value="MOBILE">MOBILE</option>
+                                <option value="CLOUD">CLOUD</option>
+                                <option value="IA">IA</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="update m-auto mr-auto">
+                                <button type="submit" class="btn btn-success btn-round"
+                                (click)="add(selectedCarrier)">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

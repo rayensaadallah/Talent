@@ -1,0 +1,90 @@
+<header class="header-style-1">
+    <div class="header-topbar topbar-style-2">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-xl-8 col-lg-6 col-md-12">
+                   <div class="header-contact text-center text-lg-start d-none d-sm-block">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <span class="text-color me-2"><i class="fa fa-phone-alt"></i></span><a> +(216) 74 333 555</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <span class="text-color me-2"><i class="fa fa-envelope"></i></span><a> Talent.Manager@talent.tn</a>
+                            </li>
+                        </ul>
+                   </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-12">
+                   <div class="d-sm-flex justify-content-center justify-content-lg-end">
+                        <div class="header-socials text-center text-lg-end">
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><a ><i class="fab fa-facebook-f"></i></a></li>
+                                <li class="list-inline-item"><a ><i class="fab fa-twitter"></i></a></li>
+                                <li class="list-inline-item"><a ><i class="fab fa-linkedin-in"></i></a></li>
+                                <li class="list-inline-item"><a ><i class="fab fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="header-btn text-center text-lg-end">
+                            <a [routerLink]="['/user/profile']"> <i class="fa fa-user-alt"></i>{{user.username}}</a>
+                            <button (click)="logout()" class="btn btn-outline-primary btn-sm"> Login out </button>
+                        </div>
+
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-navbar navbar-sticky">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="site-logo">
+                    <a>
+                        <img src="assets/images/logo.png" alt="" class="img-fluid" />
+                    </a>
+                </div>
+
+                <div class="offcanvas-icon d-block d-lg-none">
+                    <a  class="nav-toggler"><i class="fal fa-bars"></i></a>
+                </div>
+
+                <div>logo here</div>
+
+                <div class="header-search-bar d-none d-xl-block ms-4">
+                    <form >
+                        <input type="text" class="form-control" placeholder="Search for Course" >
+                        <a  class="search-submit"><i class="far fa-search"></i></a>
+                    </form>
+                 </div>
+
+                <nav class="site-navbar ms-auto">
+
+                    <ul class="primary-menu">
+                        <li class="current">
+                            <a>Home</a>
+                        </li>
+                        <li>
+                          <a>About</a>
+                        </li>
+                        <li>
+                            <a>Courses</a>
+                        </li>
+                        <li>
+                            <a>Find a job </a>
+                        </li>
+                        <li>
+                            <a>
+                              News
+                            </a>
+                        </li>
+                        <li>
+                            <a>Contacts</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!--====== Header End ======-->

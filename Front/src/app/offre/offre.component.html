@@ -1,0 +1,124 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">List Jobs Availabel :</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-primary">
+                        <th>Title</th>
+                        <th>Place</th>
+                        <th>Salar</th>
+                        <th>Company</th>
+                        <th>Description </th>
+                        <th>Background </th>
+                        <th>Requirement </th>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let p of listoffre'>
+                            <td>{{p.title}}</td>
+                            <td>{{p.Place}}</td>
+                            <td>{{p.Salar}}</td>
+                            <td>{{p.Company}}</td>
+                            <td>{{p.Description}}</td>
+
+                            <td>{{p.Background}}</td>
+                            <td>{{p.Requirement}}</td>
+
+                            <td><button type="button" (click)="delete(p)" class="btn btn-outline-primary">Delete</button></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <h5 class="card-title">Offres availabel </h5>
+            </div>
+            <div class="card-body">
+                <form #orderForm="ngForm">
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Title </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="title" required=""
+                                [(ngModel)]="selectedOffre.title">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Place</label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="title" required=""
+                                [(ngModel)]="selectedOffre.Place">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Salary </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="number" id="validationCustom012" name="Salar"
+                                required="" [(ngModel)]="selectedOffre.Salar">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Company </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="Company"
+                                required="" [(ngModel)]="selectedOffre.Company">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Description </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="Description"
+                                required="" [(ngModel)]="selectedOffre.Description">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Background </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="datetime-local" id="validationCustom012" name="Background"
+                                required="" [(ngModel)]="selectedOffre.Background">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-4">
+                            <label for="validationCustom012" class="mb-0">Requirement </label>
+                        </div>
+                        <div class="col-xl-8 col-sm-7">
+                            <input class="form-control" type="text" id="validationCustom012" name="Requirement"
+                                required="" [(ngModel)]="selectedOffre.Requirement">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="update m-auto mr-auto">
+                            <button type="submit" class="btn btn-success btn-round"
+                                (click)="add(selectedOffre)">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
