@@ -1,6 +1,7 @@
 package com.example.talent.services.Carrier;
 
 import com.example.talent.dtos.CarrierDto;
+import com.example.talent.dtos.UserDto;
 
 import java.util.List;
 
@@ -9,11 +10,11 @@ public interface IServiceCarrier {
 
     void add(CarrierDto carrierDto);
 
-    void delete(Integer id);
+    void delete(CarrierDto carrierDto);
 
-    public void update(Integer id, CarrierDto carrierDto);
+    public void update( CarrierDto carrierDto);
 
-    public void assignCarrierToUser(Integer carrierId, Integer userId) ;
+    public void BuyCarrier(CarrierDto carrierDto) ;
 
-    CarrierDto getCarrier(Integer carrierId);
+    CarrierDto getCarrier(CarrierDto carrierDto);
 }

@@ -1,12 +1,11 @@
 package com.example.talent.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Data
 @Entity
@@ -22,6 +21,9 @@ public class Offer implements Serializable {
     private String Description;
     private String Background;
     private String Requirement;
+    @ManyToMany(mappedBy="offers", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Carrier> carriers;
 
 
 }

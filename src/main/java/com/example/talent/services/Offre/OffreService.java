@@ -1,16 +1,25 @@
 package com.example.talent.services.Offre;
 
 import com.example.talent.Mappers.EntityMapper;
+import com.example.talent.dtos.CarrierDto;
 import com.example.talent.dtos.OffreDto;
+import com.example.talent.models.Carrier;
+import com.example.talent.models.Formation;
 import com.example.talent.models.Offer;
+import com.example.talent.models.Users;
+import com.example.talent.repository.CarrierRepository;
 import com.example.talent.repository.OffreRepository;
+import com.example.talent.repository.UserRepository;
+import com.example.talent.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -18,8 +27,11 @@ import java.util.List;
 public class OffreService implements IoffreService{
 
     OffreRepository offreRepository;
+    UserService userService;
+    UserRepository userRepository;
+    CarrierRepository carrierRepository;
 
-    private EntityMapper<Offer,OffreDto> offreentityMapper;
+     EntityMapper<Offer,OffreDto> offreentityMapper;
 
     @Override
     public List<OffreDto> getAlloffres() {
@@ -35,23 +47,25 @@ public class OffreService implements IoffreService{
     @Override
     public void add(OffreDto offreDto) {
         Offer offer = offreentityMapper.fromDTO(offreDto, Offer.class);
+        System.out.println(offer);
         offreRepository.save(offer);
     }
 
     @Override
-    public void delete(Integer id) {
-        if (offreRepository.existsById(id)) {
+    public void delete(OffreDto id) {
+        Offer o = offreRepository.getByTitle(id.getTitle());
+        if (offreRepository.existsById(o.getId())) {
             // Delete the carrier by its ID
-            offreRepository.deleteById(id);
+            offreRepository.deleteById(o.getId());
         } else {
-            throw new EntityNotFoundException("Offer with ID " + id + " not found");
+            throw new EntityNotFoundException("Carrier with ID " + o.getTitle() + " not found");
         }
     }
 
+
     @Override
-    public OffreDto update(Integer id, OffreDto updatedOffreDto) throws EntityNotFoundException {
-        Offer existingOffer = offreRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("Offer not found with id: " + id));
+    public OffreDto update(OffreDto updatedOffreDto) throws EntityNotFoundException {
+        Offer existingOffer = offreRepository.getByTitle(updatedOffreDto.getTitle());
             existingOffer.setBackground(updatedOffreDto.getBackground());
             existingOffer.setDescription(updatedOffreDto.getDescription());
             existingOffer.setPlace(updatedOffreDto.getPlace());
@@ -65,9 +79,17 @@ public class OffreService implements IoffreService{
     }
 
     @Override
-    public OffreDto getoneoffre(Integer id) {
-        Offer carrier = offreRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Carrier with ID " + id + " not found"));
-        return offreentityMapper.fromBasic(carrier, OffreDto.class);
+    public OffreDto getone(OffreDto offreDto) {
+        Offer c = offreRepository.getByTitle(offreDto.getTitle());
+        return offreentityMapper.fromBasic(c, OffreDto.class);
+    }
+
+    @Override
+    public void buyoffre(OffreDto dto, CarrierDto carrierDto) {
+        Offer offer = offreRepository.getByTitle(dto.getTitle());
+        Carrier carrier = carrierRepository.getByTitle(carrierDto.getTitle());
+        offer.getCarriers().add(carrier);
+        // Update the carrier in the database
+        offreRepository.save(offer);
     }
 }

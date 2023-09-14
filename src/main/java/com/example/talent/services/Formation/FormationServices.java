@@ -2,6 +2,7 @@ package com.example.talent.services.Formation;
 
 import com.example.talent.Mappers.EntityMapper;
 import com.example.talent.dtos.Formationdto;
+import com.example.talent.dtos.OffreDto;
 import com.example.talent.models.Formation;
 import com.example.talent.models.Users;
 import com.example.talent.repository.FormationRepository;
@@ -24,10 +25,10 @@ public class FormationServices implements IFormationServices {
     FormationRepository formationRepository;
     @Autowired
     UserRepository userRepository;
-
+    UserService userService;
     private EntityMapper<Formation,Formationdto> formationFormationdtoEntityMapper;
 
-    UserService userService;
+
     @Override
     public List<Formationdto> getAll() {
         List<Formation> f = formationRepository.findAll();
@@ -44,21 +45,18 @@ public class FormationServices implements IFormationServices {
     }
 
     @Override
-    public void delete(Integer id) {
-        if (formationRepository.existsById(id)) {
-            // Delete the carrier by its ID
-            formationRepository.deleteById(id);
+    public void delete(Formationdto formationdto) {
+        Formation f=formationRepository.getFormationByTitle(formationdto.getTitle());
+        if (f!=null){
+            formationRepository.deleteById(f.getId());
         } else {
-            throw new EntityNotFoundException("Formation with ID " + id + " not found");
+            throw new EntityNotFoundException("Formation with  Title" + formationdto.getTitle() + " not found");
         }
-
     }
 
     @Override
-    public Formationdto update(Integer id, Formationdto updated) {
-        Formation existing = formationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Formaiton not found with id: " + id));
-        existing.setId(id);
+    public Formationdto update(Formationdto updated) {
+        Formation existing = formationRepository.getFormationByTitle(updated.getTitle());
         existing.setLanguage(updated.getLanguage());
         existing.setDescription(updated.getDescription());
         existing.setPlace(updated.getPlace());
@@ -71,29 +69,23 @@ public class FormationServices implements IFormationServices {
         existing.setDescription(updated.getDescription());
         formationRepository.save(existing);
         return updated;
-
     }
 
     @Override
-    public Formationdto getone(Integer id) {
-        Formation f = formationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Carrier with ID " + id + " not found"));
+    public Formationdto getone(Formationdto formationdto) {
+        Formation f=formationRepository.getFormationByTitle(formationdto.getTitle());
         return formationFormationdtoEntityMapper.fromBasic(f, Formationdto.class);
     }
 
     @Override
-    public void BuyFormation(Integer id) {
-        Optional<Formation> optionalFormation = formationRepository.findById(id);
+    public void BuyFormation(Formationdto formationdto) {
+        Formation f = formationRepository.getFormationByTitle(formationdto.getTitle());
         Optional<Users> optionalUser = userRepository.findByUsername(userService.getUserByToken().getUsername());
-
-        if (optionalFormation.isPresent() && optionalUser.isPresent()) {
-            Formation formation = optionalFormation.get();
+        if (optionalUser.isPresent()) {
             Users user = optionalUser.get();
-
-            formation.getUsersSet().add(user);
-            user.getFormations().add(formation);
-
-            formationRepository.save(formation);
+            f.getUsersSet().add(user);
+            user.getFormations().add(f);
+            formationRepository.save(f);
             userRepository.save(user);
         } else {
             throw new EntityNotFoundException("Formation or user not found for the given id and username.");

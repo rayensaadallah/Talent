@@ -11,12 +11,12 @@ public interface IFormationServices {
 
     void add(Formationdto f);
 
-    void delete(Integer id);
+    void delete(Formationdto formationdto);
 
-    public Formationdto update(Integer id, Formationdto f);
+    public Formationdto update( Formationdto f);
 
 
-    Formationdto getone(Integer id);
+    Formationdto getone(Formationdto formationdto);
 
-    public void BuyFormation(Integer id);
+    public void BuyFormation(Formationdto formationdto);
 }

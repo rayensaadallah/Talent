@@ -1,5 +1,6 @@
 package com.example.talent.services.Offre;
 
+import com.example.talent.dtos.CarrierDto;
 import com.example.talent.dtos.OffreDto;
 
 import java.util.List;
@@ -10,12 +11,13 @@ public interface IoffreService {
 
     void add(OffreDto offreDto);
 
-    void delete(Integer id);
+    void delete(OffreDto id);
 
-    public OffreDto update(Integer id, OffreDto offreDto);
-
-
-    OffreDto getoneoffre(Integer id);
+    public OffreDto update(OffreDto offreDto);
 
 
+    OffreDto getone(OffreDto id);
+
+
+    void buyoffre(OffreDto dto, CarrierDto carrierDto);
 }

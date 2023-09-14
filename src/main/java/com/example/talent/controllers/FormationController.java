@@ -1,7 +1,9 @@
 package com.example.talent.controllers;
 
-import com.example.talent.dtos.Formationdto;
 
+
+import com.example.talent.dtos.Formationdto;
+import com.example.talent.dtos.UserDto;
 import com.example.talent.services.Formation.IFormationServices;
 
 import lombok.AllArgsConstructor;
@@ -17,51 +19,47 @@ import java.util.List;
 @CrossOrigin("*")
 public class FormationController {
 
-
     IFormationServices iFormationServices;
 
     @GetMapping("/")
     @PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
-    public List<Formationdto> all(){
-        List<Formationdto> l= iFormationServices.getAll();
-        return l;
+    public List<Formationdto> showAll(){
+        List<Formationdto> list=iFormationServices.getAll();
+        return list;
     }
-
-    @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAnyRole('MANAGER')")
-    public ResponseEntity<String> removeOffre(@PathVariable Integer id) {
-        iFormationServices.delete(id);
-        return ResponseEntity.ok("Offer is Deleted ");
-    }
-
-
-    @GetMapping("/{id}")
+    @GetMapping("/show")
     @PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
-    public Formationdto get(@PathVariable Integer id ){
-        return iFormationServices.getone(id);
+    public Formationdto showone(@RequestBody Formationdto dto){
+        Formationdto ca  =iFormationServices.getone(dto);
+        return  ca;
     }
-
-    @PutMapping("/update/{id}")
-    @PreAuthorize("hasAnyRole('MANAGER')")
-    public ResponseEntity<String> update(@PathVariable("id")Integer id ,@RequestBody Formationdto dto)
-    {
-        iFormationServices.update(id,dto);
-        return  ResponseEntity.ok("Offer have been updated ");
+    @PutMapping("/BuyFormation")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<String> assignCarrierToUser(@RequestBody Formationdto dto) {
+        iFormationServices.BuyFormation(dto);
+        return ResponseEntity.ok("Formation assigned to User successfully");
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAnyRole('MANAGER')")
-    public ResponseEntity<String> add(@RequestBody Formationdto dto)
-    {
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<String> add(@RequestBody Formationdto dto) {
         iFormationServices.add(dto);
-        return ResponseEntity.ok("Offer Added Succesfully");
+        return ResponseEntity.ok("Formation is added ");
     }
-    @PutMapping("/buy/{id}")
-    @PreAuthorize("hasAnyRole('USER')")
-    public ResponseEntity<String> buy(@PathVariable("id")Integer id )
-    {
-        iFormationServices.BuyFormation(id);
-        return  ResponseEntity.ok("Formation have been bought ");
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<String> remove(@RequestBody Formationdto dto) {
+        iFormationServices.delete(dto);
+        return ResponseEntity.ok("Formation is Deleted ");
+
     }
+
+    @PutMapping("/update/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<String>update(@RequestBody Formationdto dto) {
+        iFormationServices.update(dto);
+        return ResponseEntity.ok("Formation is updated");
+    }
+
 
 }

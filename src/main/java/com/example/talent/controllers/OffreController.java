@@ -1,13 +1,13 @@
 package com.example.talent.controllers;
 
 
+
+import com.example.talent.dtos.CarrierDto;
 import com.example.talent.dtos.OffreDto;
-import com.example.talent.dtos.UserDto;
 import com.example.talent.services.Offre.IoffreService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,43 +17,46 @@ import java.util.List;
 @RequestMapping("/offer")
 @CrossOrigin("*")
 public class OffreController {
+
     IoffreService ioffreService;
 
     @GetMapping("/")
     @PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
-    public List<OffreDto> all(){
-        List<OffreDto> l= ioffreService.getAlloffres();
-        return l;
+    public List<OffreDto> showAll(){
+        List<OffreDto> list=ioffreService.getAlloffres();
+        return list;
     }
-
-    @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAnyRole('MANAGER')")
-    public ResponseEntity<String> removeOffre(@PathVariable Integer id) {
-        ioffreService.delete(id);
-        return ResponseEntity.ok("Offer is Deleted ");
-    }
-
-
-    @GetMapping("/{id}")
+    @GetMapping("/show")
     @PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
-    public OffreDto get(@PathVariable Integer id ){
-        return ioffreService.getoneoffre(id);
+    public OffreDto showone(@RequestBody OffreDto dto){
+        OffreDto ca  =ioffreService.getone(dto);
+        return  ca;
     }
-
-    @PutMapping("/update/{id}")
-    @PreAuthorize("hasAnyRole('MANAGER')")
-    public ResponseEntity<String> update(@PathVariable("id")Integer id ,@RequestBody OffreDto offreDto)
-    {
-        ioffreService.update(id,offreDto);
-        return  ResponseEntity.ok("Offer have been updated ");
+    @PutMapping("/OffreToCarrier")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<String> assignCarrierToUser(@RequestBody OffreDto dto,@RequestBody CarrierDto carrierDto) {
+        ioffreService.buyoffre(dto,carrierDto);
+        return ResponseEntity.ok("Formation assigned to User successfully");
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAnyRole('MANAGER')")
-    public ResponseEntity<String> add(@RequestBody OffreDto offreDto)
-    {
-        ioffreService.add(offreDto);
-        return ResponseEntity.ok("Offer Added Succesfully");
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<String> add(@RequestBody OffreDto dto) {
+        ioffreService.add(dto);
+        return ResponseEntity.ok("Formation is added ");
+    }
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<String> remove(@RequestBody OffreDto dto) {
+        ioffreService.delete(dto);
+        return ResponseEntity.ok("Formation is Deleted ");
+    }
+
+    @PutMapping("/update/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<String>update(@RequestBody OffreDto dto) {
+        ioffreService.update(dto);
+        return ResponseEntity.ok("Formation is updated");
     }
 
 }

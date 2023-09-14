@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CarrierRepository extends JpaRepository<Carrier, Integer > {
+    Carrier getByTitle(String s);
 }

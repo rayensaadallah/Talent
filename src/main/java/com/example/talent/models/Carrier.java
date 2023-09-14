@@ -7,6 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -24,4 +25,7 @@ public class Carrier  implements Serializable {
     @OneToMany(mappedBy = "carrier", cascade = CascadeType.ALL)
     @JsonIgnore
     List<Users> users;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Offer> offers;
 }

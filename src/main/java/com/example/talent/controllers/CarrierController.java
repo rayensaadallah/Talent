@@ -1,6 +1,7 @@
 package com.example.talent.controllers;
 
 import com.example.talent.dtos.CarrierDto;
+import com.example.talent.dtos.UserDto;
 import com.example.talent.services.Carrier.IServiceCarrier;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,38 +24,37 @@ public class CarrierController {
          List<CarrierDto> list=serviceCarrier.getAllCarriers();
         return list;
     }
-    @GetMapping("/show/{id}")
+    @GetMapping("/show")
     @PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
-    public CarrierDto showone(@PathVariable("id") Integer carrierId){
-     CarrierDto carrierDto  =serviceCarrier.getCarrier(carrierId);
-
-        return  carrierDto;
+    public CarrierDto showone(@RequestBody CarrierDto carrierDto){
+     CarrierDto ca  =serviceCarrier.getCarrier(carrierDto);
+        return  ca;
     }
     @PutMapping("/assignCarrierToUser")
-    @PreAuthorize("hasAnyRole('MANAGER')")
-    public ResponseEntity<String> assignCarrierToUser(@RequestParam Integer carrierId, @RequestParam Integer userId) {
-        serviceCarrier.assignCarrierToUser(carrierId, userId);
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<String> assignCarrierToUser(@RequestBody CarrierDto carrierDto) {
+        serviceCarrier.BuyCarrier(carrierDto);
         return ResponseEntity.ok("Carrier assigned to User successfully");
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<String> add(@RequestBody CarrierDto carrierDto) {
         serviceCarrier.add(carrierDto);
         return ResponseEntity.ok("Carrier is added ");
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String> remove(@PathVariable("id") Integer id) {
-        serviceCarrier.delete(id);
+    public ResponseEntity<String> remove(@RequestBody CarrierDto carrierDto) {
+        serviceCarrier.delete(carrierDto);
       return ResponseEntity.ok("Carrier is Deleted ");
 
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
-    public ResponseEntity<String>update(@PathVariable("id") Integer id,@RequestBody CarrierDto carrierDto) {
-        serviceCarrier.update(id,carrierDto);
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+    public ResponseEntity<String>update(@RequestBody CarrierDto carrierDto) {
+        serviceCarrier.update(carrierDto);
         return ResponseEntity.ok("Carrier is updated");
     }
 
