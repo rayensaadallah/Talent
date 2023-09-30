@@ -20,6 +20,8 @@ public class OffreController {
 
     IoffreService ioffreService;
 
+
+
     @GetMapping("/")
     @PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
     public List<OffreDto> showAll(){
@@ -29,7 +31,7 @@ public class OffreController {
     @GetMapping("/show")
     @PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
     public OffreDto showone(@RequestBody OffreDto dto){
-        OffreDto ca  =ioffreService.getone(dto);
+        OffreDto ca  =ioffreService.getOne(dto);
         return  ca;
     }
     @PutMapping("/OffreToCarrier")

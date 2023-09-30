@@ -49,7 +49,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public UserDto getUserByToken() {//te5ou el token traj3ou user without id forma dto
+    public UserDto getUserByToken() {
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) SecurityContextHolder
                 .getContext()
                 .getAuthentication();

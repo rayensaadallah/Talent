@@ -23,31 +23,30 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
-public class OffreService implements IoffreService{
+public class OffreService implements IoffreService {
 
     OffreRepository offreRepository;
     UserService userService;
     UserRepository userRepository;
     CarrierRepository carrierRepository;
 
-     EntityMapper<Offer,OffreDto> offreentityMapper;
+    private EntityMapper<Offer, OffreDto> offreDtoEntityMapper;
 
     @Override
     public List<OffreDto> getAlloffres() {
         List<Offer> offers = offreRepository.findAll();
-        List<OffreDto> offredto = new ArrayList<>();
+        List<OffreDto> offredtoList = new ArrayList<>();
         for (Offer offer : offers) {
-            offredto.add(offreentityMapper.fromBasic(offer,OffreDto.class));
+            OffreDto offreDto = offreDtoEntityMapper.fromBasic(offer, OffreDto.class);
+            offredtoList.add(offreDto);
         }
-        return offredto;
+        return offredtoList;
     }
 
 
     @Override
     public void add(OffreDto offreDto) {
-        Offer offer = offreentityMapper.fromDTO(offreDto, Offer.class);
-        System.out.println(offer);
+        Offer offer = offreDtoEntityMapper.fromDTO(offreDto, Offer.class);
         offreRepository.save(offer);
     }
 
@@ -55,10 +54,9 @@ public class OffreService implements IoffreService{
     public void delete(OffreDto id) {
         Offer o = offreRepository.getByTitle(id.getTitle());
         if (offreRepository.existsById(o.getId())) {
-            // Delete the carrier by its ID
             offreRepository.deleteById(o.getId());
         } else {
-            throw new EntityNotFoundException("Carrier with ID " + o.getTitle() + " not found");
+            throw new EntityNotFoundException("Offre with Title  " + o.getTitle() + " not found");
         }
     }
 
@@ -66,30 +64,32 @@ public class OffreService implements IoffreService{
     @Override
     public OffreDto update(OffreDto updatedOffreDto) throws EntityNotFoundException {
         Offer existingOffer = offreRepository.getByTitle(updatedOffreDto.getTitle());
-            existingOffer.setBackground(updatedOffreDto.getBackground());
-            existingOffer.setDescription(updatedOffreDto.getDescription());
-            existingOffer.setPlace(updatedOffreDto.getPlace());
-            existingOffer.setCompany(updatedOffreDto.getCompany());
-            existingOffer.setRequirement(updatedOffreDto.getRequirement());
-            existingOffer.setSalary(updatedOffreDto.getSalary());
-            existingOffer.setTitle(updatedOffreDto.getTitle());
-            offreRepository.save(existingOffer);
-            return updatedOffreDto;
+        existingOffer.setBackground(updatedOffreDto.getBackground());
+        existingOffer.setDescription(updatedOffreDto.getDescription());
+        existingOffer.setPlace(updatedOffreDto.getPlace());
+        existingOffer.setCompany(updatedOffreDto.getCompany());
+        existingOffer.setRequirement(updatedOffreDto.getRequirement());
+        existingOffer.setSalary(updatedOffreDto.getSalary());
+        existingOffer.setTitle(updatedOffreDto.getTitle());
+        offreRepository.save(existingOffer);
+        return updatedOffreDto;
 
     }
 
     @Override
-    public OffreDto getone(OffreDto offreDto) {
+    public OffreDto getOne(OffreDto offreDto) {
         Offer c = offreRepository.getByTitle(offreDto.getTitle());
-        return offreentityMapper.fromBasic(c, OffreDto.class);
+        return offreDtoEntityMapper.fromBasic(c, OffreDto.class);
     }
 
     @Override
     public void buyoffre(OffreDto dto, CarrierDto carrierDto) {
-        Offer offer = offreRepository.getByTitle(dto.getTitle());
-        Carrier carrier = carrierRepository.getByTitle(carrierDto.getTitle());
-        offer.getCarriers().add(carrier);
-        // Update the carrier in the database
-        offreRepository.save(offer);
+        Offer f = offreRepository.getByTitle(dto.getTitle());
+        Carrier c = carrierRepository.getByTitle(carrierDto.getTitle());
+        f.getCarriers().add(c);
+        offreRepository.save(f);
+        System.out.println("done ");
     }
 }
+
+

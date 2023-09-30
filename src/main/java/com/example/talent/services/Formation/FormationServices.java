@@ -19,11 +19,8 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 public class FormationServices implements IFormationServices {
-    @Autowired
     FormationRepository formationRepository;
-    @Autowired
     UserRepository userRepository;
     UserService userService;
     private EntityMapper<Formation,Formationdto> formationFormationdtoEntityMapper;

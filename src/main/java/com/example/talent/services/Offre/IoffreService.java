@@ -16,7 +16,7 @@ public interface IoffreService {
     public OffreDto update(OffreDto offreDto);
 
 
-    OffreDto getone(OffreDto id);
+    OffreDto getOne(OffreDto id);
 
 
     void buyoffre(OffreDto dto, CarrierDto carrierDto);

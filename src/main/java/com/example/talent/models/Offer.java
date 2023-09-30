@@ -12,7 +12,6 @@ import java.util.Set;
 public class Offer implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-
     private Integer id;
     private String title;
     private String Place;

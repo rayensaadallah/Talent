@@ -20,14 +20,12 @@ public class TalentApplication {
 		SpringApplication.run(TalentApplication.class, args);
 		System.out.println("Starting ...");
 	}
-
 	@Bean
 	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncode){
 		return args -> {
 			if (roleRepository.findByAuthority("ADMIN").isPresent()) {
 				return;
 			}
-
 			Role adminRole = roleRepository.save(new Role("ADMIN"));
 			Role userRole = roleRepository.save(new Role("USER"));
 			Role managerRole = roleRepository.save(new Role("MANAGER"));

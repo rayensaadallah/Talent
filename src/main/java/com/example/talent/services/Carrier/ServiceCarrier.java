@@ -24,9 +24,9 @@ import java.util.Optional;
 public class ServiceCarrier implements IServiceCarrier{
 
     CarrierRepository carrierRepository;
-    private EntityMapper<Carrier, CarrierDto> carrierDtoMapper;
     UserRepository userRepository;
     UserService userService;
+    private EntityMapper<Carrier, CarrierDto> carrierDtoMapper;
 
     @Override
     public List<CarrierDto> getAllCarriers() {
@@ -87,8 +87,6 @@ public class ServiceCarrier implements IServiceCarrier{
         } else {
             throw new EntityNotFoundException("Formation or user not found for the given id and username.");
         }
-
-
     }
 
 
