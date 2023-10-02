@@ -14,12 +14,12 @@ public class Offer implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     private String title;
-    private String Place;
-    private Float Salary;
-    private String Company;
-    private String Description;
-    private String Background;
-    private String Requirement;
+    private String place;
+    private Float salary;
+    private String company;
+    private String description;
+    private String background;
+    private String requirement;
     @ManyToMany(mappedBy="offers", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Carrier> carriers;

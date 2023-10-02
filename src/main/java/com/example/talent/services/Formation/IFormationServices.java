@@ -11,7 +11,7 @@ public interface IFormationServices {
 
     void add(Formationdto f);
 
-    void delete(Formationdto formationdto);
+    void delete(Integer formationdto);
 
     public Formationdto update( Formationdto f);
 

@@ -11,7 +11,7 @@ public interface IoffreService {
 
     void add(OffreDto offreDto);
 
-    void delete(OffreDto id);
+    void delete(Integer id);
 
     public OffreDto update(OffreDto offreDto);
 

@@ -20,8 +20,6 @@ public class OffreController {
 
     IoffreService ioffreService;
 
-
-
     @GetMapping("/")
     @PreAuthorize("hasAnyRole('ADMIN','USER','MANAGER')")
     public List<OffreDto> showAll(){
@@ -38,27 +36,24 @@ public class OffreController {
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public ResponseEntity<String> assignCarrierToUser(@RequestBody OffreDto dto,@RequestBody CarrierDto carrierDto) {
         ioffreService.buyoffre(dto,carrierDto);
-        return ResponseEntity.ok("Formation assigned to User successfully");
+        return ResponseEntity.ok("The offre is assigner to a Special Carrier");
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String> add(@RequestBody OffreDto dto) {
+    public void add(@RequestBody OffreDto dto) {
         ioffreService.add(dto);
-        return ResponseEntity.ok("Formation is added ");
     }
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String> remove(@RequestBody OffreDto dto) {
-        ioffreService.delete(dto);
-        return ResponseEntity.ok("Formation is Deleted ");
+    public void remove(@PathVariable Integer id) {
+        ioffreService.delete(id);
     }
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String>update(@RequestBody OffreDto dto) {
+    public void update(@RequestBody OffreDto dto) {
         ioffreService.update(dto);
-        return ResponseEntity.ok("Formation is updated");
     }
 
 }

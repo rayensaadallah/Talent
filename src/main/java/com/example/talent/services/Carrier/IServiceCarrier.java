@@ -10,7 +10,7 @@ public interface IServiceCarrier {
 
     void add(CarrierDto carrierDto);
 
-    void delete(CarrierDto carrierDto);
+    void delete(Integer id);
 
     public void update( CarrierDto carrierDto);
 

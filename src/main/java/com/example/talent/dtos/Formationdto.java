@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Formationdto {
+    private Integer id;
+
     private String title;
     private String name_company;
     private String technologie;

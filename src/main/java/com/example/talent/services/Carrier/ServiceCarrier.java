@@ -52,14 +52,8 @@ public class ServiceCarrier implements IServiceCarrier{
 
 
     @Override
-    public void delete(CarrierDto carrierDto) {
-        Carrier carrier = carrierRepository.getByTitle(carrierDto.getTitle());
-        if (carrierRepository.existsById(carrier.getId())) {
-            // Delete the carrier by its ID
-            carrierRepository.deleteById(carrier.getId());
-        } else {
-            throw new EntityNotFoundException("Carrier with ID " + carrier.getTitle() + " not found");
-        }
+    public void delete(Integer id) {
+        carrierRepository.deleteById(id);
     }
 
     @Override

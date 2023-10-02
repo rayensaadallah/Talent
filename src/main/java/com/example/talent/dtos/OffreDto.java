@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OffreDto {
+    private Integer id;
+
     private String title;
     private String Place;
     private Float Salary;

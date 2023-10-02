@@ -32,30 +32,25 @@ public class CarrierController {
     }
     @PutMapping("/assignCarrierToUser")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String> assignCarrierToUser(@RequestBody CarrierDto carrierDto) {
+    public void assignCarrierToUser(@RequestBody CarrierDto carrierDto) {
         serviceCarrier.BuyCarrier(carrierDto);
-        return ResponseEntity.ok("Carrier assigned to User successfully");
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String> add(@RequestBody CarrierDto carrierDto) {
+    public void add(@RequestBody CarrierDto carrierDto) {
         serviceCarrier.add(carrierDto);
-        return ResponseEntity.ok("Carrier is added ");
     }
-    @DeleteMapping("/delete")
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String> remove(@RequestBody CarrierDto carrierDto) {
-        serviceCarrier.delete(carrierDto);
-      return ResponseEntity.ok("Carrier is Deleted ");
-
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+    public void remove(@PathVariable Integer id) {
+        serviceCarrier.delete(id);
     }
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String>update(@RequestBody CarrierDto carrierDto) {
+    public void update(@RequestBody CarrierDto carrierDto) {
         serviceCarrier.update(carrierDto);
-        return ResponseEntity.ok("Carrier is updated");
     }
 
 }

@@ -51,13 +51,8 @@ public class OffreService implements IoffreService {
     }
 
     @Override
-    public void delete(OffreDto id) {
-        Offer o = offreRepository.getByTitle(id.getTitle());
-        if (offreRepository.existsById(o.getId())) {
-            offreRepository.deleteById(o.getId());
-        } else {
-            throw new EntityNotFoundException("Offre with Title  " + o.getTitle() + " not found");
-        }
+    public void delete(Integer id) {
+        offreRepository.deleteById(id);
     }
 
 

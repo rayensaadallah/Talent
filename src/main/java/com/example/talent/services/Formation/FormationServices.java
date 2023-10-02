@@ -42,13 +42,8 @@ public class FormationServices implements IFormationServices {
     }
 
     @Override
-    public void delete(Formationdto formationdto) {
-        Formation f=formationRepository.getFormationByTitle(formationdto.getTitle());
-        if (f!=null){
-            formationRepository.deleteById(f.getId());
-        } else {
-            throw new EntityNotFoundException("Formation with  Title" + formationdto.getTitle() + " not found");
-        }
+    public void delete(Integer id) {
+            formationRepository.deleteById(id);
     }
 
     @Override

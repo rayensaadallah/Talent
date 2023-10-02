@@ -33,32 +33,32 @@ public class FormationController {
         Formationdto ca  =iFormationServices.getone(dto);
         return  ca;
     }
+
     @PutMapping("/BuyFormation")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String> assignCarrierToUser(@RequestBody Formationdto dto) {
+    public void assignCarrierToUser(@RequestBody Formationdto dto) {
         iFormationServices.BuyFormation(dto);
-        return ResponseEntity.ok("Formation assigned to User successfully");
+
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String> add(@RequestBody Formationdto dto) {
+    public void add(@RequestBody Formationdto dto) {
         iFormationServices.add(dto);
-        return ResponseEntity.ok("Formation is added ");
-    }
-    @DeleteMapping("/delete")
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String> remove(@RequestBody Formationdto dto) {
-        iFormationServices.delete(dto);
-        return ResponseEntity.ok("Formation is Deleted ");
 
     }
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+    public void remove(@PathVariable Integer id) {
+        iFormationServices.delete(id);
+    }
 
-    @PutMapping("/update/{id}")
+
+    @PutMapping("/update")
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<String>update(@RequestBody Formationdto dto) {
+    public void update(@RequestBody Formationdto dto) {
         iFormationServices.update(dto);
-        return ResponseEntity.ok("Formation is updated");
+
     }
 
 

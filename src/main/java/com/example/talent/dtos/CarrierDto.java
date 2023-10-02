@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarrierDto {
+    private Integer id;
     private String title;
     private String Level;
     private int needed_days;
