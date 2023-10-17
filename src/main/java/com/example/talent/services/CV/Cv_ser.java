@@ -76,7 +76,7 @@ public class Cv_ser implements Icv {
 
     private List<String> extractSkillsFromText(String text) {
         // Define a pattern that matches skills like "Java," "Spring Boot," or "Angular"
-        Pattern skillsPattern = Pattern.compile("\\b(?:Java|Spring Boot|Angular|angular|spring boot|Symfony|Php)\\b", Pattern.CASE_INSENSITIVE);
+        Pattern skillsPattern = Pattern.compile("\\b(?:Java|SpringBoot|Angular|angular|spring boot|Symfony|Php|Python|C#|Terraform|CloudFormation|Ansible|AWS|Azure|Google Cloud|Git|git|JavaScript|TypeScript|.Net Core)\\b", Pattern.CASE_INSENSITIVE);
         Matcher matcher = skillsPattern.matcher(text);
 
         Set<String> uniqueExtractedSkills = new HashSet<>(); // Use a set to ensure uniqueness

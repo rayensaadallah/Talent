@@ -1,5 +1,6 @@
 package com.example.talent.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -20,6 +21,7 @@ public class Skills {
     private Integer Rate;
     private boolean Verified;
     private String grade;
-   @ManyToMany(cascade = CascadeType.ALL,mappedBy = "skills")
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "skills")
     private List<Cv> cv;
 }
