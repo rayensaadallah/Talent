@@ -13,6 +13,11 @@ import { UsersComponent } from './User/users/users.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CareerComponent } from './career/career.component';
 import { OffreComponent } from './offre/offre.component';
+import {CvaddComponentComponent} from "./cvadd-component/cvadd-component.component";
+import {CvComponentComponent} from "./cv-component/cv-component.component";
+import {SkillsComponent} from "./skills/skills.component";
+import {UpdateSkillsComponent} from "./update-skills/update-skills.component";
+import {WebComponent} from "./web/web.component";
 
 const routes: Routes = [
   {
@@ -60,7 +65,18 @@ const routes: Routes = [
       {
         path: 'home',
         component: BodyUserComponent,
-      }
+      },
+      { path:'AddCV',
+        component:CvaddComponentComponent
+      },
+      {path:'CvU',component: CvComponentComponent},
+      {path:'Skills',component: SkillsComponent},
+      {path:'UpdateSkills/:id',component:UpdateSkillsComponent},
+      {path:'web',component: WebComponent},
+
+
+
+
     ]
   },
   {

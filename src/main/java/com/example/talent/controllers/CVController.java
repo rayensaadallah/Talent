@@ -8,6 +8,7 @@ import com.example.talent.repository.UserRepository;
 import com.example.talent.services.CV.Cv_ser;
 import com.example.talent.services.CV.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -121,7 +122,7 @@ Cv_ser cs;
 
     @GetMapping("/scrapeSkills/{cvId}")
     public ResponseEntity<List<String>> Skills(@PathVariable Integer cvId) throws IOException {
-        Cv cv = cr.findById(cvId).orElse(null);
+        Cv cv = cr.findCvByUser_UserId(cvId);
         if (cv != null) {
             List<String> extractedSkills = cs.extractSkillsFromCV(cv);
             cs.saveSkillsToDatabase(extractedSkills,cv) ;
@@ -129,6 +130,19 @@ Cv_ser cs;
             System.out.println("Extracted skills: \n" + extractedSkills);
 
             return ResponseEntity.ok(extractedSkills);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/getcv/{iduser}")
+    public ResponseEntity<byte[]> getcv(@PathVariable Integer iduser) {
+        Cv cv = cr.findCvByUser_UserId(iduser);
+        if (cv != null) {
+            byte[] cvContent = cv.getUploadedFile(); // Assuming Cv has a property 'uploadedFile' of type byte[]
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            return new ResponseEntity<>(cvContent, headers, HttpStatus.OK);
         } else {
             return ResponseEntity.notFound().build();
         }
